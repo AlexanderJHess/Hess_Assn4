@@ -1,9 +1,17 @@
-awk '{if ($2>=18){$3="yes"}else if ($2<18){$3="no"} else {$3=Eligible} print}' possible_voters.txt >> possible_voters2.txt 
-sed -e '1s/yes/Eligible/' possible_voters2.txt >> possible_voters3.txt 
+awk '{if ($2 >=18){$3="yes"}else if ($2<18){$3="no"}else{$3=Eligible} print}' possible_voters.txt >> possible_voters2.txt
+#So, theoretically this awk command should use the nested if/else if command to add a third column, and then if column 2's value is greater than or equal to 18, fill with a yes. If the value is less than 18, fill with a no. And then if neither of those scenarios are correct, fill with "Eligible"
+#I assumed the column header would be filled in with Eligible using this code, but it actually gets filled with a "yes" and I'm not sure why..
+
+sed -e '1s/yes/Eligible/' possible_voters2.txt >> possible_voters3.txt
+#This command is here to fix the problem with awk not replacing the header the way I intended using awk. For the first line (the headers), this command replaces 'yes' with 'eligible'
+
 echo "First ten lines of original file:"
-head possible_voters.txt 
+head possible_voters.txt
+#reports the first ten lines original file
+
 echo "First ten lines of new file:"
-head possible_voters3.txt 
-echo -e "$(sort -k3 possible_voters3.txt | grep yes | wc -l) voters are eligible"
+head possible_voters3.txt
+#reports the first ten lines of new file
 
-
+echo -e "$(sort -k4 possible_voters3.txt | grep yes } wc -l) voters are eligible"
+#reports the number of eligible voters defined by second file.
