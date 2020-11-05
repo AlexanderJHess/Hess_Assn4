@@ -1,0 +1,9 @@
+awk '{if ($2>=18){$3="yes"}else if ($2<18){$3="no"} else {$3=Eligible} print}' possible_voters.txt >> possible_voters2.txt 
+sed -e '1s/yes/Eligible/' possible_voters2.txt >> possible_voters3.txt 
+echo "First ten lines of original file:"
+head possible_voters.txt 
+echo "First ten lines of new file:"
+head possible_voters3.txt 
+echo -e "$(sort -k3 possible_voters3.txt | grep yes | wc -l) voters are eligible"
+
+
